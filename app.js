@@ -32,9 +32,10 @@ app.use(cookieParser());
 import course from "./routes/courseRoutes.js";
 import user from "./routes/userRoutes.js";
 
-app.use("/",(req,res)=>{
+app.get("/",(req,res)=>{
     res.send("Working");
-})
+});
+
 app.use("/api/v1",course);
 app.use("/api/v1",user);
 app.use("/api/v1",payment);
