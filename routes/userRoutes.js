@@ -39,7 +39,7 @@ router.route("/resetpassword/:token").put(resetPassword);
 router.route("/addtoplaylist").post(isAuthenticated , addToPlaylist);
 
 //Remove from playlist
-router.route("/removefromplaylist").delete(isAuthenticated , removeFromPlaylist);
+router.route("/removefromplaylist").delete(removeFromPlaylist);
 
 
 // ADMIN ROUTES
