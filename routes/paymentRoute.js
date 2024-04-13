@@ -8,7 +8,7 @@ const router = express.Router();
 router.route("/subscribe").get(isAuthenticated, buySubscription);
 
 //verify payment and save reference in database
-router.route("/subscribe").post(isAuthenticated, paymentVerification);
+router.route("/paymentverification").post(isAuthenticated, paymentVerification);
 
 // get razorpay key
 router.route("/razorpaykey").get(getRazorpayKey);
