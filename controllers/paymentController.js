@@ -76,8 +76,9 @@ export const getRazorpayKey = catchAsyncError(async(req,res,next)=>{
 });
 
 export const cancelSubscription = catchAsyncError(async(req,res,next)=>{
-    
     const user = await User.findById(req.user._id);
+     
+    
     const subscriptionId = user.subscription.id;
 
     let refund = false;
@@ -96,17 +97,22 @@ export const cancelSubscription = catchAsyncError(async(req,res,next)=>{
         refund = true;
         await instance.payments.refund(payment.razorpay_payment_id);
     }
+
+    await Payment.findOneAndDelete({
+        razorpay_subscription_id: subscriptionId,
+    });
+
+     user.subscription.id = undefined;
+     user.subscription.status = undefined;
+
+    await user.save();
     
     res.status(200).json({
         success:true,
-        message:
-        refund ? "Subscription cancelled you will receive full refund within 7 days":
+        message:refund ? "Subscription cancelled you will receive full refund within 7 days":
         "Subscription cancelled after 7 days no refund is initiated",
+        
     });
 
-    await payment.remove();
-    user.subscription.id = undefined;
-    user.subscription.status = undefined;
-
-    await user.save();
+    
 })
