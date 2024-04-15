@@ -33,7 +33,7 @@ import course from "./routes/courseRoutes.js";
 import user from "./routes/userRoutes.js";
 
 app.get("/",(req,res)=>{
-    res.send("Working");
+    res.send(`Click here to visit frontend ${process.env.FRONTEND_URL}`);
 });
 
 app.use("/api/v1",course);
